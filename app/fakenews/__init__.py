@@ -1,8 +1,4 @@
 from flask import Blueprint
+from . import routes
 
 pln = Blueprint("pln", __name__)
-
-def configure(app):
-    app.register_blueprint(pln)
-
-from . import routes
