@@ -8,7 +8,7 @@ ADD . /build/
 
 WORKDIR /build
 
-RUN pip3 install flask && flask_restful && nltk
+RUN pip3 install flask && flask_restful && nltk && numpy
 
 FROM python:3.7 
 
