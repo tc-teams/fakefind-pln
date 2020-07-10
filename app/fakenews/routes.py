@@ -1,10 +1,13 @@
 from flask import request
 from . import pln
 
-@pln.route("/", methods=['GET'])
+@pln.route("/", methods=['POST'])
 def bag_of_words():
-    #TODO implementar a chamada dos métodos de processamento de linguagem natural
-    return "ola"
+    document = request.args.get("document")
+
+    limilarity = cts_match(bow(document),bow(document))
+
+    return limilarity, 200
 
 
 
