@@ -24,11 +24,9 @@ def cts_stopwords(tokens):
        without_stop_words.extend([word for word in i if not word in stop_words])
     
     return without_stop_words
-    
+
 def cts_match(vec1, vec2):
-    '''
-        Find the percentage of matching words
-    '''
+    
     pairs1 = vec1
     pairs2 = vec2
     union  = len(pairs1) + len(pairs2)
