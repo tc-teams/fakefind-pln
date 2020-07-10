@@ -13,45 +13,39 @@ text = "Hello word"
 text2 = open("teste.txt", "r")
 text3 = open("teste2.txt", "r")
 
-'''
-First, we will convert text to lower case, then remove all non-word characters 
-and remove all punctuations.
-'''
-dataset = nltk.sent_tokenize(text2.read()) 
-for i in range(len(dataset)):
-    dataset[i] = dataset[i].lower()
-    dataset[i] = re.sub(r'\W', ' ', dataset[i])
-    dataset[i] = re.sub(r'\s+', ' ', dataset[i])
+def text_cleaner(text):
+    '''
+        Convert text to lower case, remove all non-word characters 
+        and remove all punctuations.
+    '''
+    dataset = nltk.sent_tokenize(text.read()) 
+    for i in range(len(dataset)):
+        dataset[i] = dataset[i].lower()
+        dataset[i] = re.sub(r'\W', ' ', dataset[i])
+        dataset[i] = re.sub(r'\s+', ' ', dataset[i])
+    return dataset
 
-# for i in range(len(dataset)): 
-#     print(dataset[i])
 
-'''
-Next, we declare a dictionary to hold our bag of words, tokenize each sentence 
-to words, and for each word in sentence, we check if the word exists in our 
-dictionary. If it does, then we increment its count by 1. If it doesn’t, we add 
-it to our dictionary and set its count as 1.
-'''
-
-def word_extraction(sentence):
+def word_extraction(dataset):
+    '''
+        Declare a dictionary to hold the bag of words, tokenize each sentence 
+        to words, and for each word in sentence, check if the word exists in the 
+        dictionary. If it does, then increment its count by 1. If it doesn’t, add 
+        it to the dictionary and set its count as 1.
+    '''
     ignore = set(stopwords.words('portuguese'))
-    cleaned_text = [w.lower() for w in words if w not in ignore]
-    return cleaned_text
+    word2count = {}
+    for data in dataset:
+        words = nltk.word_tokenize(data)
+        for word in words:
+            if word not in ignore:
+                if word not in word2count.keys():
+                    word2count[word] = 1
+                else:
+                    word2count[word] += 1
 
-ignore = set(stopwords.words('portuguese'))
-word2count = {}
-for data in dataset:
-    words = nltk.word_tokenize(data)
-    for word in words:
-        if word not in ignore:
-            if word not in word2count.keys():
-                word2count[word] = 1
-            else:
-                word2count[word] += 1
-
-freq_words = heapq.nlargest(100, word2count, key=word2count.get)
-
-print("Palavras frequentes", freq_words)
+    freq_words = heapq.nlargest(100, word2count, key=word2count.get)
+    return freq_words
 
 '''
 In this step we construct a vector, which would tell us whether a word in each 
@@ -81,7 +75,23 @@ that finds the most common ngrams that contain a particular target word.
 # for hit in fd.setdefault():
 #     print(' '.join(hit))
 
+def strike_match(vec1, vec2):
+    '''
+        Find the percentage of matching words
+    '''
+    pairs1 = vec1
+    pairs2 = vec2
+    union  = len(pairs1) + len(pairs2)
+    hit_count = 0
+    for x in pairs1:
+        for y in pairs2:
+            if x == y:
+                hit_count += 1
+                break
+    return (2.0 * hit_count) / union
 
+print("Porcentagem", strike_match(word_extraction(text_cleaner(text2)), 
+                                   word_extraction(text_cleaner(text3))))
 
 tokenized_text = sent_tokenize(text)
 print("sent_tokenize", tokenized_text)
