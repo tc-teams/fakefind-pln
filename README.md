@@ -11,7 +11,9 @@ Para configurar as ferramentas:
 ```
 pip3 install -U flask
 ```
-##Tamplete one
+## Run tamplete
+
+### Tamplete one
 Para executar um modulo de tamplete
 ```
 Utilizar somente quando não tiver uma função associada
@@ -21,7 +23,7 @@ flask run
 
 http://localhost:5000/
 ```
-##Tamplete two
+### Tamplete two
 Para executar um modulo de tamplete
 ```
 python3 simple.py runserver
