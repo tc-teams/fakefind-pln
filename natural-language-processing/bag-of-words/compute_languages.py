@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
 
 import heapq 
 from nltk.tokenize import RegexpTokenizer
@@ -10,7 +14,8 @@ def cts_tokenize(document):
  
     tokenizer = RegexpTokenizer(r'\W|\s+',' ')
     sentence = []
-    for i in nltk.sent_tokenize(document.read()):
+    
+    for i in nltk.sent_tokenize(document):
         sentence.append(i.lower())
 
     tokens = cts_stopwords([tokenizer.tokenize(i) for i in sentence])
@@ -32,13 +37,13 @@ def cts_match(vec1, vec2):
     union  = len(pairs1) + len(pairs2)
     hit_count = 0
     for x in pairs1:
-        print("valor de x:",x)
+        #print("valor de x:",x)
         for y in pairs2:
             if x == y:
-                print("valor de y:",y)
+                #print("valor de y:",y)
                 hit_count += 1
                 break
-    return (2.0 * hit_count) / union
+    return str(((2.0 * hit_count) / union))
 
 
 def bow(document):
