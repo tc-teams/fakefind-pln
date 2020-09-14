@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys 
 import os
 import json
@@ -8,8 +9,7 @@ import logging
 from flask import request
 
 from . import pln,errors
-
-sys.path.append(os.path.abspath($PWD))
+sys.path.append(os.path.abspath("/code/natural-language-processing/bag-of-words"))
 from compute_languages import *
 
 LOG = logging.getLogger(__name__)

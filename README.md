@@ -11,10 +11,10 @@ Para configurar as ferramentas:
 ```
 pip3 install -U flask
 ```
-## Run tamplete
+## Run Template
 
-### Tamplete one
-Para executar um modulo de tamplete
+### Template one
+Para executar um modulo de template
 ```
 Utilizar somente quando não tiver uma função associada
 export FLASK_APP={{PATH:module}}
@@ -23,8 +23,8 @@ flask run
 
 http://localhost:5000/
 ```
-### Tamplete two
-Para executar um modulo de tamplete
+### Template two
+Para executar um modulo de template
 ```
 python3 simple.py runserver
 
