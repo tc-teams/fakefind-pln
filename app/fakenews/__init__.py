@@ -1,4 +1,8 @@
 from flask import Blueprint
-from . import routes
+
 
 pln = Blueprint("pln", __name__)
+errors = Blueprint("errors", __name__)
+
+
+from . import routes

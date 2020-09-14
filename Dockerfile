@@ -1,21 +1,15 @@
-FROM python:3.7 as builder
+FROM python:3.8
 
 RUN apt-get update && apt-get install -y --no-install-recommends gcc build-essential
 
-RUN mkdir /build
+WORKDIR /code
 
-ADD . /build/
+COPY requirements.txt .
 
-WORKDIR /build
+RUN pip3 install -r requirements.txt
 
-RUN pip3 install flask && flask_restful && nltk && numpy
+COPY ./ .
 
-FROM python:3.7 
+EXPOSE 80
 
-COPY --from=builder /build/main /app/
-
-WORKDIR /app
-
-EXPOSE 8080
-
-CMD ["python","main.py"]
+CMD ["python","sample.py","runserver","--port", "80","--host","0.0.0.0"]
