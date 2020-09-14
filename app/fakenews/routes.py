@@ -9,7 +9,7 @@ from flask import request
 
 from . import pln,errors
 
-sys.path.append(os.path.abspath("/code/natural-language-processing/bag-of-words"))
+sys.path.append(os.path.abspath($PWD))
 from compute_languages import *
 
 LOG = logging.getLogger(__name__)

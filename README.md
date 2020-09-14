@@ -6,22 +6,22 @@ Para utilizar do ambiente:
 pip3 install virtualenv
 virtualenv venv
 ```
-## tools for the environment
+## Tools for the environment
 Para configurar as ferramentas:
 ```
 pip3 install -U flask
 ```
-## Run tamplete exemplo 1
+##Tamplete one
 Para executar um modulo de tamplete
 ```
-Utilizar somento quando não tiver uma função associada
+Utilizar somente quando não tiver uma função associada
 export FLASK_APP={{PATH:module}}
 export FLASK_ENV=development
 flask run
 
 http://localhost:5000/
 ```
-## Run tamplete exemplo 2
+##Tamplete two
 Para executar um modulo de tamplete
 ```
 python3 simple.py runserver
@@ -29,7 +29,7 @@ python3 simple.py runserver
 http://localhost:5000/
 ```
 
-## Exec cts_tokenize
+## Exemplos
 ```
 from nltk.tokenize import sent_tokenize
 text = "God is Great! I won a lottery."
@@ -51,8 +51,6 @@ curl -X POST -d '{"description":"ola mundo, tudo bom","news":["ola mundo","ola"]
 
 response:
 {"ola":"0.4","ola mundo":"0.6666666666666666"}
-
-
 
 ```
 
