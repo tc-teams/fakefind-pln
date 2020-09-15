@@ -9,7 +9,7 @@ import logging
 from flask import request,Response
 
 from . import pln,errors
-sys.path.append(os.path.abspath("/root/go-work/src/github.dxc.com/projects/fakefinder-pln/natural-language-processing/bag-of-words"))
+sys.path.append(os.path.abspath("/code/natural-language-processing/bag-of-words"))
 from compute_languages import *
 
 LOG = logging.getLogger(__name__)
