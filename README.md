@@ -52,7 +52,7 @@ request:
 curl -X POST -d '{"description":"ola mundo, tudo bom","news":["ola mundo","ola"]}' http://localhost:5000/ -H "Content-Type:application/json" 
 
 response:
-{"ola":"0.4","ola mundo":"0.6666666666666666"}
+{"description": "ola mundo, tudo bom", "pln-process": {"ola mundo": "0.6666666666666666", "ola": "0.4"}}
 
 ```
 
