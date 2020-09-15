@@ -37,6 +37,8 @@ def bag_of_words():
         "pln-process":result,
     })
 
+    LOG.info("Request completed :",data)
+
     return Response(data, status=200, mimetype='application/json')
 
 
