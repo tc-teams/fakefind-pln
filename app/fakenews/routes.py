@@ -6,7 +6,7 @@ import logging
 
 
 
-from flask import request
+from flask import request,Response
 
 from . import pln,errors
 sys.path.append(os.path.abspath("/code/natural-language-processing/bag-of-words"))
@@ -17,23 +17,31 @@ LOG = logging.getLogger(__name__)
 
 @pln.route("/", methods=['POST'])
 def bag_of_words():
-    req = request.get_json()
+    req = json.loads(request.get_data().decode('utf-8'))
   
     if not bool(req):
         LOG.debug("Bad Request!")
         return handle_bad_request(400)
         
-
-    doc = req["news"]
-    desc = req["description"]
+    description = req["description"]
+    related = req["news"]
     result= {}
 
-    for d in doc:
-        compare = cts_match(bow(desc),bow(d))
-        result[d] = compare
+    for news in related :
+        compare = cts_match(bow(description),bow(news))
+        result[news] = compare
     
 
-    return result, 200
+    data = json.dumps({
+        "description": description,
+        "pln-process":result,
+    })
+
+    LOG.info("Request completed :",data)
+
+    return Response(data, status=200, mimetype='application/json')
+
+
 
 
 @errors.errorhandler(400)
