@@ -19,7 +19,7 @@ def create_app():
     app = Flask(__name__)
     configure_logging()
 
-    from .fakenews import pln,errors
+    from .fakenews import pln, errors
 
 
     app.register_blueprint(pln)

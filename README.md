@@ -26,9 +26,19 @@ http://localhost:5000/
 ### Template two
 Para executar um modulo de template
 ```
-python3 simple.py runserver
+python3 sample.py runserver
 
 http://localhost:5000/
+```
+
+## Docker Usage
+
+```docker
+
+docker build -t gcloud/fakefinder-pln:1.0.0 .
+docker run -d --name pln -t gcloud/fakefinder-pln:1.0.0 
+docker logs pln --follow
+
 ```
 
 ## Exemplos
@@ -43,7 +53,7 @@ Output: ['God is Great!', 'I won a lottery ']
 
 ## Container local
 ```
-Change $PWD ----> /code/natural-language-processing/bag-of-words
+Change $PWD ----> /code/nlp/bow
 ```
 
 ## Curl 
@@ -55,9 +65,6 @@ response:
 {"description": "ola mundo, tudo bom", "pln-process": {"ola mundo": "0.6666666666666666", "ola": "0.4"}}
 
 ```
-
-
-
 
 ## References 
 [virtualenv](https://www.treinaweb.com.br/blog/criando-ambientes-virtuais-para-projetos-python-com-o-virtualenv/)
