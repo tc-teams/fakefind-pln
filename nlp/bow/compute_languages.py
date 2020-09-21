@@ -45,7 +45,6 @@ def cts_match(vec1, vec2):
                 break
     return str(((2.0 * hit_count) / union))
 
-
 def bow(document):
     bag = cts_tokenize(document)
     frequence = {}
@@ -54,4 +53,6 @@ def bow(document):
                 frequence[word] = 1
            else:
                 frequence[word] += 1
-    return frequence
+
+    freq_words = heapq.nlargest(40, frequence, key=frequence.get)
+    return freq_words
