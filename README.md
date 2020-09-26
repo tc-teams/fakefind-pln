@@ -36,7 +36,7 @@ http://localhost:5000/
 ```docker
 
 docker build -t gcloud/fakefinder-pln:1.0.0 .
-docker run -d --name pln -t gcloud/fakefinder-pln:1.0.0 
+docker run -d -p 80:80 --name pln -t gcloud/fakefinder-pln:1.0.0 
 docker logs pln --follow
 
 ```
@@ -68,6 +68,7 @@ response:
 
 ## References 
 [virtualenv](https://www.treinaweb.com.br/blog/criando-ambientes-virtuais-para-projetos-python-com-o-virtualenv/)
+[sumarização](https://github.com/akashp1712/nlp-akash/blob/4976f2cc65b82d25bd10ca9298ae91f9d568b0be/text-summarization/Word_Frequency_Summarization.py#L30)
 
 ## Contributing
 

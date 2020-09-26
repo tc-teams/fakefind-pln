@@ -7,7 +7,7 @@ import logging
 from flask import request, Response
 
 from . import pln, errors
-from nlp.bow.compute_languages import cts_tokenize, cts_match, bow
+from nlp.bow.compute_languages import bow
 
 LOG = logging.getLogger(__name__)
 
@@ -25,7 +25,7 @@ def bag_of_words():
     result= {}
 
     for news in related :
-        compare = cts_match(bow(description),bow(news))
+        compare = bow(description, news)
         result[news] = compare
     
 
@@ -34,7 +34,7 @@ def bag_of_words():
         "pln-process": result,
     })
 
-    LOG.info("Request completed :", data)
+    LOG.info("Request completed")
 
     return Response(data, status=200, mimetype='application/json')
 
