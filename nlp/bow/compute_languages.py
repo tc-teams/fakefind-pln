@@ -3,9 +3,7 @@ import re
 import unicodedata
 from math import sqrt
 
-import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize, RegexpTokenizer
-from nltk.probability import FreqDist
 from nltk.stem.rslp import RSLPStemmer
 from nltk.corpus import stopwords
 
@@ -20,7 +18,12 @@ def _remove_stop_words(document):
     text_tokens = word_tokenize(document)
 
     tokens_without_sw = [word for word in text_tokens if not word in stopwords.words()]
-    filtered_sentence = (" ").join(tokens_without_sw)
+    rslps = RSLPStemmer()
+    radical = []
+    for i in tokens_without_sw:
+        radical.append(rslps.stem(i))
+
+    filtered_sentence = (" ").join(radical)
     return filtered_sentence
 
 
@@ -167,5 +170,4 @@ def summary(document):
     doc =  _create_summarization(document)
     doc_cleaned = _clean_text(doc)
     text = _remove_stop_words(doc_cleaned)
-    rslps = RSLPStemmer()
-    return  rslps.stem(text)
+    return text
