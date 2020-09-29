@@ -154,7 +154,7 @@ def _generate_summary(sentences, sentenceValue, threshold):
     return summary
 
 def bow(description, document):
-
+    doc_freq = _create_frequency_table(document)
     desc_freq = _create_frequency_table(description)
 
     similarity = _cosine_similarity(desc_freq, doc_freq)
