@@ -1,18 +1,34 @@
 # -*- coding: utf-8 -*-
-
+import re
+import unicodedata
 from math import sqrt
 
+import nltk
 from nltk.tokenize import sent_tokenize, word_tokenize, RegexpTokenizer
 from nltk.probability import FreqDist
 from nltk.stem.rslp import RSLPStemmer
 from nltk.corpus import stopwords
 
 
+def _clean_text(document):
+    nfkd = unicodedata.normalize('NFKD', document)
+    text = u"".join([c for c in nfkd if not unicodedata.combining(c)])
+
+    return re.sub('[^a-zA-Z0-9 \\\]', '',text)
+
+def _remove_stop_words(document):
+    text_tokens = word_tokenize(document)
+
+    tokens_without_sw = [word for word in text_tokens if not word in stopwords.words()]
+    filtered_sentence = (" ").join(tokens_without_sw)
+    return filtered_sentence
+
+
 def _cts_tokenize(document):
- 
+
     tokenizer = RegexpTokenizer(r'\W|\s+',' ')
     sentence = []
-    
+
     for i in sent_tokenize(document):
         sentence.append(i.lower())
 
@@ -52,7 +68,7 @@ def _cosine_similarity(x, y):
 
     vector1 = list(input1.values())
 
-    for k in input1.keys():    # Normalizing input vectors. 
+    for k in input1.keys():
         if k in input2:
             vector2.append(float(input2[k]))
         else :
@@ -94,7 +110,6 @@ def _create_summarization(text):
 
     return summary
 
-
 def _score_sentences(sentences, freqTable) -> dict:
 
     sentenceValue = dict()
@@ -122,7 +137,6 @@ def _find_average_score(sentenceValue) -> int:
     for entry in sentenceValue:
         sumValues += sentenceValue[entry]
 
-    # Average value of a sentence from original text
     average = (sumValues / len(sentenceValue))
 
     return average
@@ -139,12 +153,8 @@ def _generate_summary(sentences, sentenceValue, threshold):
 
     return summary
 
-
 def bow(description, document):
 
-    sum_doc = _create_summarization(document)
-
-    doc_freq = _create_frequency_table(sum_doc)
     desc_freq = _create_frequency_table(description)
 
     similarity = _cosine_similarity(desc_freq, doc_freq)
@@ -152,3 +162,10 @@ def bow(description, document):
     percentage = similarity*100
 
     return percentage
+
+def summary(document):
+    doc =  _create_summarization(document)
+    doc_cleaned = _clean_text(doc)
+    text = _remove_stop_words(doc_cleaned)
+    rslps = RSLPStemmer()
+    return  rslps.stem(text)
